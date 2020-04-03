@@ -1,0 +1,23 @@
+{
+  "name": "8-ball",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/22dugara/8-ball.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/22dugara/8-ball/issues"
+  },
+  "homepage": "https://github.com/22dugara/8-ball#readme",
+  "devDependencies": {
+    "electron": "8.2.0"
+  }
+}
