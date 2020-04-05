@@ -17,7 +17,7 @@ desktopCapturer.getSources({ types: ['window', 'screen'] }).then(async sources =
 
     sources.forEach(function(source){
         console.log(source.name);
-       if(source.name === '8 Ball Pool - A free Sports Game'){
+       if(source.name === '8 Ball Pool - A free Sports Game' || source.name === '8 Ball Pool - A free Sports Game - Google Chrome'){
             const screenshotPath = path.join(os.tmpdir(), 'screenshot.png');
             fs.writeFile(screenshotPath, source.thumbnail.toPNG(), function(err){
                 if(err) return console.log(err.message);

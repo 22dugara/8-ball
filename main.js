@@ -1,6 +1,7 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, Menu, ipcMain } = require('electron')
 const path = require('path')
 const url = require('url')
+
 
 function createWindow () {
   // Create the browser window.
@@ -15,8 +16,8 @@ function createWindow () {
   // and load the index.html of the app.
   win.loadFile('index.html')
 
-  // Open the DevTools.
-  win.webContents.openDevTools()
+  const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
+  Menu.setApplicationMenu(mainMenu);
 }
 
 // This method will be called when Electron has finished
@@ -43,3 +44,45 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+const mainMenuTemplate = [
+  {
+    label: 'File',
+    submenu: [
+      {
+        label: 'Take Screenshot',
+        click() {
+        }
+      },
+      {
+        label: 'Quit',
+        accelerator: process.platform == 'darwin' ? 'Command+Q' : 'Ctrl+Q',
+        click(){
+          app.quit()
+        }
+      }
+    ]
+  }
+]
+
+if(process.platform == 'darwin') {
+  mainMenuTemplate.unshift({});
+}
+
+//Add developer tools item if in prod
+if(process.env.NODE_ENV != 'production') {
+  mainMenuTemplate.push({
+    label: 'DevTools',
+    submenu: [
+      {
+        label: 'Toggle DevTools',
+        accelerator: process.platform == 'darwin' ? 'Command+I' : 'Ctrl+I',
+        click(item, focusedWindow){
+          focusedWindow.toggleDevTools();
+        }
+      },
+      {
+        role: 'reload'
+      }
+    ]
+  });
+}
