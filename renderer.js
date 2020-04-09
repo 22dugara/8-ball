@@ -22,14 +22,27 @@ desktopCapturer.getSources({ types: ['window', 'screen'], thumbnailSize: {width:
 
     sources.forEach(function(source){
         // console.log(source.name);
-       if(source.name === 'Messenger - Google Chrome'){
+        if(source.name === 'Messenger - Google Chrome'){
+            image = source.thumbnail;
+            image = image.crop({
+                x: 250,
+                y: 75,
+                width: 250,
+                height: 425
+            });
+
+            console.log(image.getSize().width + " " + image.getSize().height);
+
+            //do stuff with it
+
+
            const ScreenpathString = 'screenshot' + number + '.png';
             const screenshotPath = path.join(os.tmpdir(), ScreenpathString);
-            fs.writeFile(screenshotPath, source.thumbnail.toPNG(), function(err){
+            fs.writeFile(screenshotPath, image.toPNG(), function(err){
                 if(err) return console.log(err.message);        
             })
             var p = document.getElementById("location");
-            p.innerHTML = 'file://' + screenshotPath;     
+            p.innerHTML = 'file://' + screenshotPath; 
         }
     })
 
