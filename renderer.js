@@ -24,11 +24,14 @@ desktopCapturer.getSources({ types: ['window', 'screen'], thumbnailSize: {width:
         // console.log(source.name);
         if(source.name === 'Messenger - Google Chrome'){
             image = source.thumbnail;
-            image = image.crop({
+            image = image.resize({
+                width: 1000,
+                height: 521
+            }).crop({
                 x: 250,
-                y: 75,
+                y: 65,
                 width: 250,
-                height: 425
+                height: 435
             });
 
             console.log(image.getSize().width + " " + image.getSize().height);
@@ -53,7 +56,7 @@ desktopCapturer.getSources({ types: ['window', 'screen'], thumbnailSize: {width:
 })
 }
 
-window.setInterval(getball, 5000);
+window.setInterval(getball, 3000);
 
 function determineScreenShotSize(){
     const screenSize = electronScreen.getPrimaryDisplay().workAreaSize;
