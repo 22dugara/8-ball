@@ -17,19 +17,23 @@ var Otime = process.hrtime()[0];
 
 
 function getball(){
-desktopCapturer.getSources({ types: ['window', 'screen'], thumbnailSize: {width: 500 , height: 500} }).then(async sources => {
+desktopCapturer.getSources({ types: ['window', 'screen'], thumbnailSize: {width: 1000 , height: 1000} }).then(async sources => {
     console.log("after get sources");
  
 
     sources.forEach(function(source){
         console.log(source.name);
-       if(source.name === '8 Ball Pool - A free Sports Game'){
+       if(source.name === 'Messenger 🔊'){
            const ScreenpathString = 'screenshot' + number + '.png';
             const screenshotPath = path.join(os.tmpdir(), ScreenpathString);
             fs.writeFile(screenshotPath, source.thumbnail.toPNG(), function(err){
                 if(err) return console.log(err.message);
                 console.log('file://' + screenshotPath);
-                document.getElementById("8-ball").src = 'file://' + screenshotPath;
+
+                var c = document.getElementById("myCanvas");
+                var p = document.getElementById("location");
+                p.innerHTML = 'file://' + screenshotPath;
+    
 
                 
             })
