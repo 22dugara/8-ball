@@ -11,7 +11,6 @@ var number  = 0;
 const thumbSize = determineScreenShotSize();
 let options = {types: ['screen'], thumbnailSize: thumbSize};
 console.log("before get sources");
-console.log(process.hrtime());
 var Ctime = process.hrtime()[0];
 var Otime = process.hrtime()[0];
 
@@ -22,30 +21,27 @@ desktopCapturer.getSources({ types: ['window', 'screen'], thumbnailSize: {width:
  
 
     sources.forEach(function(source){
-        console.log(source.name);
-       if(source.name === 'Messenger 🔊'){
+        // console.log(source.name);
+       if(source.name === 'Messenger - Google Chrome'){
            const ScreenpathString = 'screenshot' + number + '.png';
             const screenshotPath = path.join(os.tmpdir(), ScreenpathString);
             fs.writeFile(screenshotPath, source.thumbnail.toPNG(), function(err){
-                if(err) return console.log(err.message);
-                console.log('file://' + screenshotPath);
-
-                var c = document.getElementById("myCanvas");
-                var p = document.getElementById("location");
-                p.innerHTML = 'file://' + screenshotPath;
-    
-
-                
+                if(err) return console.log(err.message);        
             })
+            var p = document.getElementById("location");
+            p.innerHTML = 'file://' + screenshotPath;     
         }
     })
 
     console.log(process.hrtime());
     number = number + 1;
-    setTimeout(getball, 100);
+
+    
 })
 }
-getball();
+
+window.setInterval(getball, 5000);
+
 function determineScreenShotSize(){
     const screenSize = electronScreen.getPrimaryDisplay().workAreaSize;
     const maxDimension = Math.max(screenSize.width, screenSize.height);

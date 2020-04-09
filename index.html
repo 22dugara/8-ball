@@ -1,39 +1,45 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Hello World!</title>
-    <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
-  </head>
- 
-  <body>
-    <p id= "location" >https://www.w3schools.com/html/img_the_scream.jpg</p>
-   
-    
-  
-    <canvas id="myCanvas" width="1000" height="1000"
-    style="border:1px solid #d3d3d3;">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Hello World!</title>
+  <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+</head>
+
+<body>
+  <p id="location">https://www.w3schools.com/html/img_the_scream.jpg</p>
+  <p><button onclick="myCanvas()">Try it</button></p>
+
+  <canvas id="myCanvas" width="1000" height="1000" style="border:1px solid #d3d3d3;">
     Your browser does not support the HTML5 canvas tag.</canvas>
-    
-    <p><button onclick="myCanvas()">Try it</button></p>
-    
-    <script>
+
+
+
+  <script>
     function myCanvas() {
       var c = document.getElementById("myCanvas");
       var ctx = c.getContext("2d");
+      ctx.clearRect(0, 0, c.width, c.height);
       var img = new Image();
       img.src = document.getElementById("location").innerHTML;
-      ctx.drawImage(img,0,0);
+      ctx.drawImage(img, 10, 10);
     }
-    </script>
-    
-    </body>
-    <script> 
-      require('./renderer.js');
-      </script>
- 
-        
-  </body>
-  
+
+    document.addEventListener("keyup", (event) => {
+      if (event.key == 'a') {
+        myCanvas();
+      }
+    });
+  </script>
+
+</body>
+<script>
+  require('./renderer.js');
+</script>
+
+
+</body>
+
 </html>
